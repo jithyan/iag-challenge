@@ -2,10 +2,12 @@ import express from "express";
 import helmet from "helmet";
 import { passwordGame } from "./routes/password";
 import { shuffle } from "./util";
+import cors from "cors";
 
 const PORT = 5000;
 
 const server = express();
+server.use(cors({ origin: "http://localhost:3000" }));
 server.use(helmet());
 server.use(express.json());
 server.use(passwordGame);
