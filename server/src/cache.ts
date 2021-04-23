@@ -6,8 +6,12 @@ const passwordHintCache = new NodeCache({
   deleteOnExpire: true,
 });
 
-export const cacheGet = (hint: string) => passwordHintCache.get<string>(hint);
-export const cacheHas = (hint: string) => passwordHintCache.has(hint);
-export const cacheSet = (hint: string, password: string) =>
-  passwordHintCache.set(hint, password);
-export const cleanup = () => passwordHintCache.close();
+export const cacheGet = (hint: string): string | undefined =>
+  passwordHintCache.get<string>(hint);
+
+export const cacheHas = (hint: string): boolean => passwordHintCache.has(hint);
+
+export const cacheSet = (hint: string, password: string): boolean => {
+  console.table({ hint, password });
+  return passwordHintCache.set(hint, password);
+};

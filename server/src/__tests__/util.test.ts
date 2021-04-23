@@ -1,5 +1,5 @@
 import { isSymbol } from "node:util";
-import { highlight } from "./util";
+import { highlight } from "../util";
 
 describe("highlight tests", () => {
   it("should return an empty array when either strings are empty", () => {
