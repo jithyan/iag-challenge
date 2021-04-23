@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Attempt,
-  DigitBlock,
-  Entry,
-  ErrorNotification,
-  SingleColRow,
-} from "./components/Attempt";
-import { IStoreState, startNewGame } from "./data/reducers";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { Attempt } from "./components/Attempt";
+import { DigitBlock } from "./components/DigitBlock";
+import { Entry } from "./components/Entry";
+import { ErrorNotification } from "./components/ErrorNotification";
+import { Container, Row, Col } from "./components/Grid";
+import { startNewGame } from "./data/actions";
+import { IStoreState } from "./data/reducers";
 
 export function App() {
   const hint = useSelector<IStoreState, string>((state) => state.hint);
@@ -20,28 +20,31 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <div style={{ backgroundColor: "#e8e8e8" }} className="container">
-      <SingleColRow>
-        <h1 style={{ color: "#222831" }}>Guess the Password!</h1>
-      </SingleColRow>
-      <ErrorNotification />
-      <SingleColRow>
-        <div className="list-group list-group-horizontal">
-          {hint.split("").map((d) => (
-            <DigitBlock
-              style={{
-                backgroundColor: "#30475e",
-                color: "white",
-                fontWeight: "bold",
-              }}
-              key={d}
-              digit={d}
-              invert={false}
-            />
-          ))}
-        </div>
-      </SingleColRow>
-      <SingleColRow>
+    <ThemeProvider
+      theme={{
+        $baseColor: "#e8e8e8",
+        $highlightColor: "#f05454",
+        $textColor: "#222831",
+        $darkBaseColor: "#30475e",
+      }}
+    >
+      <Container>
+        <Row bottomMargin="medium">
+          <Col>
+            <h1>Guess the Password!</h1>
+          </Col>
+        </Row>
+        <ErrorNotification />
+        <Row>
+          <Col>
+            <div className="list-group list-group-horizontal">
+              {hint.split("").map((d) => (
+                <DigitBlock key={d} digit={d} />
+              ))}
+            </div>
+          </Col>
+        </Row>
+
         {attempts.map(({ answer, highlight }, index) => (
           <Attempt
             key={`${answer}-${index}`}
@@ -50,8 +53,9 @@ export function App() {
             highlight={highlight}
           />
         ))}
-      </SingleColRow>
-      <Entry />
-    </div>
+
+        <Entry />
+      </Container>
+    </ThemeProvider>
   );
 }
