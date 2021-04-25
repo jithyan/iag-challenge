@@ -1,5 +1,10 @@
 import { highlight } from "./util";
 
+export interface IVerifyPasswordRequest {
+  hint: string;
+  answer: string;
+}
+
 export interface INewPasswordResponseBody {
   hint: string;
 }
@@ -14,7 +19,11 @@ export interface IWrongAnswerResponseBody extends ICorrectAnswerResponseBody {
   highlight: string[];
 }
 
-export function Hint(hint: string) {
+export type IVerifyPasswordResponse =
+  | IWrongAnswerResponseBody
+  | ICorrectAnswerResponseBody;
+
+export function Hint(hint: string): INewPasswordResponseBody {
   return {
     hint,
   };
