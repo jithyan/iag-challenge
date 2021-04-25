@@ -29,7 +29,7 @@ export function App() {
       }}
     >
       <Container>
-        <Row bottomMargin="medium">
+        <Row topMargin="large" bottomMargin="medium">
           <Col>
             <h1>Guess the Password!</h1>
           </Col>
@@ -37,7 +37,7 @@ export function App() {
 
         <ErrorNotification />
 
-        <Row>
+        <Row bottomMargin="medium">
           <Col>
             <div className="list-group list-group-horizontal">
               {hint.split("").map((d) => (

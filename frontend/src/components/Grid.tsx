@@ -1,21 +1,35 @@
 import styled from "styled-components";
 
+function getMargin(size: string): string {
+  switch (size) {
+    case "small":
+      return "24px";
+
+    case "medium":
+      return "32px";
+
+    case "large":
+      return "40px";
+
+    default:
+      return "0px";
+  }
+}
+
 export function Row({
   children,
   bottomMargin = "small",
+  topMargin = "none",
 }: {
   children: React.ReactNode;
-  bottomMargin?: "large" | "medium" | "small";
+  bottomMargin?: "large" | "medium" | "small" | "none";
+  topMargin?: "large" | "medium" | "small" | "none";
 }) {
-  const marginBottom =
-    bottomMargin === "small"
-      ? "24px"
-      : bottomMargin === "medium"
-      ? "32px"
-      : "40px";
+  const marginBottom = getMargin(bottomMargin);
+  const marginTop = getMargin(topMargin);
 
   return (
-    <div style={{ marginBottom }} className="row">
+    <div style={{ marginBottom, marginTop }} className="row">
       {children}
     </div>
   );

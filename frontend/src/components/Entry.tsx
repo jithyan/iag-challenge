@@ -12,7 +12,7 @@ export function Entry() {
 
   return (
     <>
-      <Row bottomMargin="large">
+      <Row topMargin="small" bottomMargin="large">
         <div className="col-md-4">
           <div className="input-group input-group-lg">
             <input
