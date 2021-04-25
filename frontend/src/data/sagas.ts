@@ -14,6 +14,13 @@ export interface INewPasswordResponse {
   hint: string;
 }
 
+export interface IVerifyPasswordResponse {
+  correct: boolean;
+  highlight?: string[];
+  hint: string;
+  answer: string;
+}
+
 export const API_FAIL_MSG = "Sorry! The API failed on us.";
 
 export function* startNewGameSagaWorker() {
@@ -29,10 +36,6 @@ export function* startNewGameSagaWorker() {
   }
 }
 
-export function* startNewGameSagaWatcher() {
-  yield takeLatest(START_NEW_GAME, startNewGameSagaWorker);
-}
-
 export function* verifyAttemptSagaWorker(action: IVerifyAttemptAction) {
   const { hint, guess } = action.payload;
   if (guess.length === 0) {
@@ -41,21 +44,20 @@ export function* verifyAttemptSagaWorker(action: IVerifyAttemptAction) {
   }
 
   try {
-    const response: AxiosResponse<{
-      correct: boolean;
-      highlight?: string[];
-      hint: string;
-      answer: string;
-    }> = yield call(axios.post, "http://localhost:5000/verify-password", {
-      hint,
-      answer: guess,
-    });
+    const response: AxiosResponse<IVerifyPasswordResponse> = yield call(
+      axios.post,
+      "http://localhost:5000/verify-password",
+      {
+        hint,
+        answer: guess,
+      }
+    );
+    const { correct, highlight = [], answer = "" } = response.data;
     yield put(setError(""));
 
-    if (response.data.correct === true) {
+    if (correct === true) {
       yield put(setCorrect(true));
     } else {
-      const { highlight, answer } = response.data;
       yield put(addAttempt({ highlight, answer }));
     }
   } catch (error) {
@@ -65,6 +67,10 @@ export function* verifyAttemptSagaWorker(action: IVerifyAttemptAction) {
 
 export function* verifyAttemptSagaWatcher() {
   yield takeLatest(VERIFY_ATTEMPT, verifyAttemptSagaWorker);
+}
+
+export function* startNewGameSagaWatcher() {
+  yield takeLatest(START_NEW_GAME, startNewGameSagaWorker);
 }
 
 export function* rootSaga() {

@@ -4,6 +4,7 @@ import { Row, Col } from "./Grid";
 
 export function ErrorNotification() {
   const error = useSelector<IStoreState, string>((state) => state.error);
+
   return error ? (
     <Row bottomMargin="medium">
       <Col>

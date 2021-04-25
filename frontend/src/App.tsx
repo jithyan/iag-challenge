@@ -34,7 +34,9 @@ export function App() {
             <h1>Guess the Password!</h1>
           </Col>
         </Row>
+
         <ErrorNotification />
+
         <Row>
           <Col>
             <div className="list-group list-group-horizontal">

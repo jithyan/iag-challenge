@@ -9,14 +9,12 @@ const StyledSpan = styled.span<Pick<IDigitBlockProps, "variant">>`
   ${(props) => `
       font-weight: bold;
       background-color: ${
-        (props as any).variant === "highlight"
+        props.variant === "highlight"
           ? props.theme["$highlightColor"]
           : props.theme["$darkBaseColor"]
       };
       color: ${
-        (props as any).variant === "highlight"
-          ? props.theme["$textColor"]
-          : "white"
+        props.variant === "highlight" ? props.theme["$textColor"] : "white"
       }
     `}
 `;

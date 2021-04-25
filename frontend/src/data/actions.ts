@@ -1,3 +1,5 @@
+import { IAttempt } from "./reducers";
+
 export const VERIFY_ATTEMPT = "passwordGame/VERIFY_ATTEMPT";
 export const ADD_ATTEMPT = "passwordGame/ADD_ATTEMPT";
 export const SET_GUESS = "passwordGame/SET_GUESS";
@@ -31,30 +33,30 @@ export interface ISetGuessAction {
   payload: string;
 }
 
-export type StateActions =
+export type StateUpdateActions =
   | ISetGuessAction
   | IAddAttemptAction
   | ISetHintAction
   | ISetErrorAction
   | ISetCorrect;
 
-export function setCorrect(correct: boolean): StateActions {
+export function setCorrect(correct: boolean): StateUpdateActions {
   return { type: SET_CORRECT, payload: correct };
 }
 
-export function setHint(hint: string): StateActions {
+export function setHint(hint: string): StateUpdateActions {
   return { type: SET_HINT, payload: hint };
 }
 
-export function setError(error: string): StateActions {
+export function setError(error: string): StateUpdateActions {
   return { type: SET_ERROR, payload: error };
 }
 
-export function addAttempt(attempt: any): StateActions {
+export function addAttempt(attempt: IAttempt): StateUpdateActions {
   return { type: ADD_ATTEMPT, payload: attempt };
 }
 
-export function setGuess(guess: string): StateActions {
+export function setGuess(guess: string): StateUpdateActions {
   return { type: SET_GUESS, payload: guess };
 }
 

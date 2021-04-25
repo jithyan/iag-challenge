@@ -9,9 +9,7 @@ interface IAttemptProps {
 }
 
 const Bold = styled.p`
-  ${(props) => `
-    font-weight: bold;
-  `}
+  font-weight: bold;
 `;
 
 export function Attempt({ highlight, guess, number }: IAttemptProps) {

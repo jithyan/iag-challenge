@@ -4,10 +4,11 @@ import { IStoreState } from "../data/reducers";
 import { Row, Col } from "./Grid";
 
 export function Entry() {
+  const dispatch = useDispatch();
+
   const isCorrect = useSelector<IStoreState, boolean>((state) => state.correct);
   const guess = useSelector<IStoreState, string>((state) => state.guess);
   const hint = useSelector<IStoreState, string>((state) => state.hint);
-  const dispatch = useDispatch();
 
   return (
     <>

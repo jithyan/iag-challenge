@@ -5,13 +5,18 @@ import {
   SET_ERROR,
   SET_GUESS,
   SET_HINT,
-  StateActions,
+  StateUpdateActions,
 } from "./actions";
+
+export interface IAttempt {
+  highlight: string[];
+  answer: string;
+}
 
 export interface IStoreState {
   error: string;
   correct: boolean;
-  attempts: any[];
+  attempts: IAttempt[];
   guess: string;
   hint: string;
 }
@@ -26,7 +31,7 @@ export const INITIAL_STATE: IStoreState = {
 
 export function rootReducer(
   state: IStoreState = INITIAL_STATE,
-  action: StateActions
+  action: StateUpdateActions
 ) {
   switch (action.type) {
     case ADD_ATTEMPT:
